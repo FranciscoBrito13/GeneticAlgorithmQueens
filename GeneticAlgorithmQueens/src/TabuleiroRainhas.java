@@ -18,19 +18,19 @@ public class TabuleiroRainhas implements Comparable<TabuleiroRainhas>{
         }
     }
 
-    public int calculaFitness(){
-        int fitness = 28;
-        //VERIFICA LINHA E DIAGONAL
-        for(int i = 0; i < posicoes_rainhas.length; i++){
-            for(int j = i+1; j < posicoes_rainhas.length; j++){
-                if(posicoes_rainhas[i] == posicoes_rainhas[j]){
+    public int calculaFitness() {
+        int fitness = (TAMANHO_TABULEIRO * (TAMANHO_TABULEIRO - 1)) / 2;
+
+        // Verify rows and diagonals (considering both main and anti-diagonals)
+        for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+            for (int j = i + 1; j < TAMANHO_TABULEIRO; j++) {
+                if (posicoes_rainhas[i] == posicoes_rainhas[j] ||
+                        Math.abs(i - j) == Math.abs(posicoes_rainhas[i] - posicoes_rainhas[j])) {
                     fitness--;
                 }
-                if(i + posicoes_rainhas[i] == j + posicoes_rainhas[j]){
-                    fitness--;
-                }
-            }                                       
+            }
         }
+
         return fitness;
     }
 
@@ -58,10 +58,11 @@ public class TabuleiroRainhas implements Comparable<TabuleiroRainhas>{
        return posicoes_rainhas;
     }
 
-    public void setPosicoes_rainhas(int pos, int valor){
-        posicoes_rainhas[pos] = valor;
+    public void changeRandValue(){
+        int rand = (int) (Math.random() * TAMANHO_TABULEIRO);
+        posicoes_rainhas[rand] = (int) (Math.random() * TAMANHO_TABULEIRO);
 
     }
 
- 
+
 }
